@@ -23,8 +23,8 @@ public class TableToTablePull<MainType, RefType> {
         JavaPairRDD<RefType, Long> refForJoin = refTable.zipWithIndex();
 
         return mainForJoin.cartesian(refForJoin)
-            .filter(joinCandidate -> pullCriteria.validMatch(joinCandidate._1()._2()
-                , joinCandidate._2()._2()))
+            .filter(joinCandidate -> pullCriteria.validMatch(joinCandidate._1()._2(),
+                joinCandidate._2()._2()))
             .map(joinedPair -> new Tuple2<>(joinedPair._1()._1(), joinedPair._2()._1()))
             .map(joinedPair -> reducer.reduceRows(joinedPair._1(), joinedPair._2()));
     }

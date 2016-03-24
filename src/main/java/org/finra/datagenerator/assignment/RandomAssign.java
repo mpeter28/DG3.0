@@ -18,7 +18,7 @@ public class RandomAssign implements Function<Map<String, String>, Map<String, S
     }
 
     @Override
-    public Map<String, String> call(Map<String, String> stringStringMap) throws Exception {
+    public Map<String, String> call(Map<String, String> stringStringMap) {
         List<String> options = values.values(0);
         int choiceIndex = (int) (Math.random() * options.size()) + 1;
         String chosenValue = options.get(choiceIndex);

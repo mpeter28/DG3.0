@@ -23,7 +23,7 @@ public class SingleAssign implements Function<Map<String, String>, Map<String, S
     }
 
     @Override
-    public Map<String, String> call(Map<String, String> stringStringMap) throws Exception {
+    public Map<String, String> call(Map<String, String> stringStringMap) {
         HashMap<String, String> updatedMap = new HashMap<>(stringStringMap);
         updatedMap.put(variableName, variableValue.generateValue(0));
         return updatedMap;

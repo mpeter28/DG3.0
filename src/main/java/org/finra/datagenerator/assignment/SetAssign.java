@@ -19,7 +19,7 @@ public class SetAssign implements FlatMapFunction<Map<String, String>, Map<Strin
     }
 
     @Override
-    public Iterable<Map<String, String>> call(Map<String, String> stringStringMap) throws Exception {
+    public Iterable<Map<String, String>> call(Map<String, String> stringStringMap) {
         List<Map<String, String>> cartesianExpansion = new LinkedList<>();
         for (String variableValue : values.values(0)) {
             Map<String, String> expandedMap = new HashMap<>(stringStringMap);

@@ -15,12 +15,13 @@ public class DelimiterFormat implements Function<Map<String, String>, String> {
     }
 
     @Override
-    public String call(Map<String, String> stringStringMap) throws Exception {
+    public String call(Map<String, String> stringStringMap) {
         StringBuilder buildResults = new StringBuilder();
         for (String outputColumn : outputColumnOrder) {
             buildResults.append(stringStringMap.get(outputColumn));
             buildResults.append(delimiter);
         }
+        buildResults.deleteCharAt(buildResults.length() - 1);
 
         return buildResults.toString();
     }

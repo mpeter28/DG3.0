@@ -21,12 +21,8 @@ public class Branch implements GenerationStep {
 
     public JavaRDD<Map<String, String>> generate(JavaRDD<Map<String, String>> previousWork) {
         JavaRDD<Map<String, String>> trueWork = previousWork.filter(condition);
-        JavaRDD<Map<String, String>> falseWork = previousWork.filter(new Function<Map<String, String>, Boolean>() {
-            @Override
-            public Boolean call(Map<String, String> stringStringMap) throws Exception {
-                return !condition.call(stringStringMap);
-            }
-        });
+        JavaRDD<Map<String, String>> falseWork = previousWork
+            .filter(stringStringMap -> !condition.call(stringStringMap));
 
         trueWork = processTrue.generate(trueWork);
         falseWork = processFalse.generate(falseWork);
