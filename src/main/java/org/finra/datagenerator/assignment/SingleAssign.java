@@ -23,9 +23,10 @@ public class SingleAssign implements Function<Map<String, String>, Map<String, S
     }
 
     @Override
-    public Map<String, String> call(Map<String, String> stringStringMap) {
-        HashMap<String, String> updatedMap = new HashMap<>(stringStringMap);
-        updatedMap.put(variableName, variableValue.generateValue(0));
-        return updatedMap;
+    public Map<String, String> call(Map<String, String> row) {
+        HashMap<String, String> updateRow = new HashMap<>(row);
+        int seed = row.hashCode();
+        updateRow.put(variableName, variableValue.generateValue(seed));
+        return updateRow;
     }
 }

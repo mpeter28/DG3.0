@@ -18,13 +18,15 @@ public class RandomAssign implements Function<Map<String, String>, Map<String, S
     }
 
     @Override
-    public Map<String, String> call(Map<String, String> stringStringMap) {
-        List<String> options = values.values(0);
+    public Map<String, String> call(Map<String, String> row) {
+        int seed = row.hashCode();
+        List<String> options = values.values(seed);
+
         int choiceIndex = (int) (Math.random() * options.size()) + 1;
         String chosenValue = options.get(choiceIndex);
 
-        HashMap<String, String> updatedMap = new HashMap<>(stringStringMap);
-        updatedMap.put(variableName, chosenValue);
-        return updatedMap;
+        HashMap<String, String> derivedRow = new HashMap<>(row);
+        derivedRow.put(variableName, chosenValue);
+        return derivedRow;
     }
 }
