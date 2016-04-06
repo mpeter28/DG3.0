@@ -22,7 +22,7 @@ public class RandomAssign implements Function<Map<String, String>, Map<String, S
         int seed = row.hashCode();
         List<String> options = values.values(seed);
 
-        int choiceIndex = (int) (Math.random() * options.size()) + 1;
+        int choiceIndex = (int) (Math.random() * options.size());
         String chosenValue = options.get(choiceIndex);
 
         HashMap<String, String> derivedRow = new HashMap<>(row);
