@@ -5,15 +5,15 @@ import org.apache.spark.api.java.function.Function;
 
 import java.util.Map;
 
-public class Branch implements GenerationStep {
+public class BranchAndUnion implements GenerationStep {
 
     private Function<Map<String, String>, Boolean> condition;
 
     private GenerationStep processTrue;
     private GenerationStep processFalse;
 
-    public Branch(Function<Map<String, String>, Boolean> condition,
-                  GenerationStep processTrue, GenerationStep processFalse) {
+    public BranchAndUnion(Function<Map<String, String>, Boolean> condition,
+                          GenerationStep processTrue, GenerationStep processFalse) {
         this.condition = condition;
         this.processTrue = processTrue;
         this.processFalse = processFalse;
