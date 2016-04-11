@@ -9,6 +9,9 @@ public class InitializeRows implements Function<Integer, Map<String, String>> {
 
     @Override
     public Map<String, String> call(Integer integer) throws Exception {
-        return new HashMap<>();
+        Map<String, String> initial = new HashMap<>();
+        initial.put("SEED", integer.toString());
+
+        return initial;
     }
 }

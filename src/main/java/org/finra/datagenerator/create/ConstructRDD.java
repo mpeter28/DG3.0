@@ -9,24 +9,35 @@ import java.util.List;
 
 public class ConstructRDD {
 
-    public static JavaRDD<Integer> constructRDDOfSize(int n, int powerOfTen, JavaSparkContext sc) {
+    public static JavaRDD<Integer> constructRDDOfSize(int powersOfTen, JavaSparkContext sc) {
         List<Integer> nElements = new LinkedList<>();
-        for (int count = 0; count < n; count++)
-            nElements.add(1);
+        nElements.add(0);
         JavaRDD<Integer> initial = sc.parallelize(nElements);
 
-        for (int i = 0; i < powerOfTen; i++) {
-            initial = initial.flatMap(new FlatMapFunction<Integer, Integer>() {
-                @Override
-                public Iterable<Integer> call(Integer integer) throws Exception {
-                    List<Integer> tenElements = new LinkedList<>();
-                    for (int count = 0; count < 10; count++)
-                        tenElements.add(1);
-                    return tenElements;
-                }
-            });
+        for (int i = 1; i <= powersOfTen; i++) {
+            initial = initial.flatMap(new NTimesFunction(10));
         }
 
         return initial;
+    }
+
+    public static class NTimesFunction implements FlatMapFunction<Integer, Integer> {
+
+        private int nTimes;
+
+        public NTimesFunction(int nTimes) {
+            this.nTimes = nTimes;
+        }
+
+        @Override
+        public Iterable<Integer> call(Integer current) throws Exception {
+            List<Integer> tenElements = new LinkedList<>();
+            int base = current * nTimes;
+
+            for (int offset = 0; offset < nTimes; offset++)
+                tenElements.add(base + offset);
+
+            return tenElements;
+        }
     }
 }
