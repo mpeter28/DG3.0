@@ -3,6 +3,7 @@ package org.finra.datagenerator.values.eq;
 import org.finra.datagenerator.values.ValueOracle;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class NumericValue implements ValueOracle {
 
@@ -17,7 +18,8 @@ public class NumericValue implements ValueOracle {
     @Override
     public String generateValue(long seed) {
         StringBuilder builtNumber = new StringBuilder();
-        Random random = new Random(seed);
+        Random random = ThreadLocalRandom.current();
+        random.setSeed(seed);
 
         if (wholeDigits == 0 && scale > 0) {
             builtNumber.append("0.");

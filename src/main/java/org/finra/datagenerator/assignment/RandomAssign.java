@@ -6,6 +6,8 @@ import org.finra.datagenerator.values.ValuePool;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomAssign implements Function<Map<String, String>, Map<String, String>> {
 
@@ -22,7 +24,9 @@ public class RandomAssign implements Function<Map<String, String>, Map<String, S
         int seed = row.hashCode();
         List<String> options = values.values(seed);
 
-        int choiceIndex = (int) (Math.random() * options.size());
+        Random random = ThreadLocalRandom.current();
+        random.setSeed(seed);
+        int choiceIndex = random.nextInt(options.size());
         String chosenValue = options.get(choiceIndex);
 
         HashMap<String, String> derivedRow = new HashMap<>(row);

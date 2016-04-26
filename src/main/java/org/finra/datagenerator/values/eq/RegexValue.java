@@ -3,6 +3,7 @@ package org.finra.datagenerator.values.eq;
 import org.finra.datagenerator.values.ValueOracle;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,8 @@ public class RegexValue implements ValueOracle {
 
     public String generateValue(long seed) {
         StringBuilder builder = new StringBuilder();
-        Random random = new Random(seed);
+        Random random = ThreadLocalRandom.current();
+        random.setSeed(seed);
         Matcher matcher = regexPattern.matcher("");
 
         int[] cypher = new int[95];
